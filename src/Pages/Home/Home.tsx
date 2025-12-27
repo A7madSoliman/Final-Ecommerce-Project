@@ -1,68 +1,84 @@
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import Hero from "../../Components/Hero/Hero";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import CategorySlider from "../../Components/CategorySlider/CategorySlider";
+import useProductCard from "../../Hooks/useProductCard";
+import Loading from "../../Components/Loading/Loading";
+
+const PRODUCTS_PER_PAGE = 20;
 
 export default function Home() {
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useProductCard();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 100,
+    });
+  }, []);
+
+  if (isLoading) return <Loading />;
+
+  const totalProductsShown =
+    data?.pages.reduce((total, page) => total + page.data.length, 0) ?? 0;
+
   return (
     <>
-      {/* Hero Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
+      <div data-aos="fade-up">
         <Hero />
-      </motion.div>
+      </div>
 
-      {/* Products Section */}
-      <motion.section
-        className="container mx-auto px-6 mb-32"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: {
-            transition: {
-              staggerChildren: 0.15,
-            },
-          },
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-        >
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-500 mb-8">
-            Shop Popular Categories
-          </h2>
+      <div className="container mx-auto">
+        <h2 data-aos="fade-right" className="text-2xl font-semibold mb-8">
+          Shop Popular Categories
+        </h2>
 
-          {/* Category Slider */}
-          <div className="mb-8">
-            <CategorySlider />
-          </div>
-
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-500 mb-8">
-            Featured Products
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {[1, 2, 3, 4, 5].map((_, i) => (
-            <motion.div
-              key={i}
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <ProductCard />
-            </motion.div>
-          ))}
+        <div data-aos="zoom-in" className="mb-8">
+          <CategorySlider />
         </div>
-      </motion.section>
+
+        <h2 data-aos="fade-left" className="text-2xl font-semibold mb-8">
+          Featured Products
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16">
+          {data?.pages.map((page) =>
+            page.data.map((product) => (
+              <div key={product._id} data-aos="fade-up">
+                <ProductCard
+                  key={product._id}
+                  id={product._id}
+                  image={product.imageCover}
+                  category={product.category.name}
+                  name={product.title}
+                  price={product.price}
+                  priceAfterDiscount={product.priceAfterDiscount}
+                  ratingsAverage={product.ratingsAverage}
+                />
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Load more button */}
+        {hasNextPage && totalProductsShown >= PRODUCTS_PER_PAGE && (
+          <div className="flex justify-center mb-16 ">
+            <button
+              onClick={() => fetchNextPage()}
+              disabled={isFetchingNextPage}
+              className="px-6 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
+            >
+              {isFetchingNextPage ? "Loading More ..." : "Load More Products"}
+            </button>
+          </div>
+        )}
+      </div>
     </>
   );
 }

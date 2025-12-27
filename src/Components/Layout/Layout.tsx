@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import ScrollToTop from "../../Helper/ScrollToTop";
 
 export default function Layout() {
   return (
@@ -9,6 +10,7 @@ export default function Layout() {
       <main className="flex-1 pt-16">
         <Outlet />
       </main>
+      <ScrollToTop />
       <Footer />
     </div>
   );
