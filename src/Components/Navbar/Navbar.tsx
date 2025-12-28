@@ -76,13 +76,13 @@ export default function Navbar() {
           {/* Cart */}
           <NavLink to="/cart" className="relative">
             <ShoppingCart className="w-5 h-5 text-gray-700 dark:text-gray-200" />
-            <span className="absolute -top-2 -right-2 bg-blue-500 text-white w-5 h-5 rounded-full text-xs flex items-center justify-center">
+            <span className="absolute -top-3 -right-3 bg-blue-500 text-white w-5 h-5 rounded-full text-xs flex items-center justify-center">
               0
             </span>
           </NavLink>
 
           {/* Sign In */}
-          <button className="hidden sm:block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+          <button className="hidden sm:block px-4 py-2 ml-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
             Sign In
           </button>
 

@@ -1,27 +1,17 @@
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
+// import "aos/dist/aos.css";
 import Hero from "../../Components/Hero/Hero";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import CategorySlider from "../../Components/CategorySlider/CategorySlider";
-import useProductCard from "../../Hooks/useProductCard";
 import Loading from "../../Components/Loading/Loading";
+import useProducts from "../../Hooks/useProducts";
+import useAOS from "../../Hooks/useAOS";
 
 const PRODUCTS_PER_PAGE = 20;
 
 export default function Home() {
+  useAOS();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useProductCard();
-
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 100,
-    });
-  }, []);
+    useProducts();
 
   if (isLoading) return <Loading />;
 

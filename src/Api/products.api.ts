@@ -3,14 +3,17 @@ import axios from "axios";
 export interface Product {
   _id: string;
   title: string;
+  description: string;
   imageCover: string;
+  images: string[];
   price: number;
-  priceAfterDiscount: number;
+  priceAfterDiscount?: number;
+  ratingsAverage: number;
+  ratingsQuantity: number;
   category: {
+    _id: string;
     name: string;
   };
-  productName: string;
-  ratingsAverage: number;
 }
 
 export interface ProductCardProps {
@@ -28,14 +31,26 @@ export interface ProductsResponse {
   results: number;
 }
 
-const getProductsCard = async (
+export interface ProductResponse {
+  data: Product;
+}
+
+export const getProducts = async (
   page: number,
-  limit = 20
+  limit = 20,
+  categoryId?: string
 ): Promise<ProductsResponse> => {
-  const { data } = await axios.get<ProductsResponse>(
-    `https://ecommerce.routemisr.com/api/v1/products?page=${page}&limit=${limit}`
-  );
+  const url = categoryId
+    ? `https://ecommerce.routemisr.com/api/v1/products?category[in]=${categoryId}&page=${page}&limit=${limit}`
+    : `https://ecommerce.routemisr.com/api/v1/products?page=${page}&limit=${limit}`;
+
+  const { data } = await axios.get<ProductsResponse>(url);
   return data;
 };
 
-export default getProductsCard;
+export const getProductById = async (id: string): Promise<ProductResponse> => {
+  const { data } = await axios.get<ProductResponse>(
+    `https://ecommerce.routemisr.com/api/v1/products/${id}`
+  );
+  return data;
+};

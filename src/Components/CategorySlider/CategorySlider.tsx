@@ -1,11 +1,11 @@
-import useCategorySilder from "../../Hooks/useCategorySilder";
+import useCategories from "../../Hooks/useCategories";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import CategorySkeleton from "../CategorySkeleton/CategorySkeleton";
 
 export default function CategorySlider() {
-  const { data, isLoading, isError } = useCategorySilder();
+  const { data, isLoading, isError } = useCategories();
 
   if (isError) {
     return (
