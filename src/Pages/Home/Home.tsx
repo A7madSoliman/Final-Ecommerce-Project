@@ -20,12 +20,12 @@ export default function Home() {
 
   return (
     <>
-      <div data-aos="fade-up">
+      <div data-aos="fade-down">
         <Hero />
       </div>
 
       <div className="container mx-auto">
-        <h2 data-aos="fade-right" className="text-2xl font-semibold mb-8">
+        <h2 data-aos="fade-left" className="text-2xl font-semibold mb-8">
           Shop Popular Categories
         </h2>
 

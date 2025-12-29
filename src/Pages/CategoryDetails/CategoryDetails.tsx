@@ -8,9 +8,9 @@ import useAOS from "../../Hooks/useAOS";
 export default function CategoryDetails() {
   useAOS();
   const { id } = useParams();
-  const { data, isLoading } = useCategory(id!);
+  const { data: categoryData, isLoading } = useCategory(id!);
   const {
-    data: products,
+    data: productsData,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -18,7 +18,7 @@ export default function CategoryDetails() {
 
   if (isLoading) return <Loading />;
 
-  const allProducts = products?.pages.flatMap((page) => page.data) || [];
+  const allProducts = productsData?.pages.flatMap((page) => page.data) || [];
 
   return (
     <div className="container mx-auto py-10">
@@ -27,11 +27,11 @@ export default function CategoryDetails() {
         data-aos="fade-up"
       >
         <img
-          src={data?.data.image}
-          alt={data?.data.name}
+          src={categoryData?.data.image}
+          alt={categoryData?.data.name}
           className="w-64 h-64 object-cover rounded-lg shadow"
         />
-        <h1 className="text-4xl font-bold">{data?.data.name}</h1>
+        <h1 className="text-4xl font-bold">{categoryData?.data.name}</h1>
       </div>
 
       {/* Product Cards */}
@@ -66,7 +66,7 @@ export default function CategoryDetails() {
           <button
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
-            className=" mt-8 bg-blue-600 text-white px-6 py-2 rounded flex items-center justify-center col-span-full mx-auto cursor-pointer"
+            className=" mt-8 bg-blue-600 text-white px-6 py-2 rounded flex items-center justify-center col-span-full mx-auto hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
           >
             {isFetchingNextPage ? "Loading..." : "Load More"}
           </button>

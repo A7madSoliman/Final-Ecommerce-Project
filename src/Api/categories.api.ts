@@ -14,6 +14,7 @@ export interface CategoryResponse {
   data: Category;
 }
 
+// Get all categories
 export const getCategories = async (): Promise<CategoriesResponse> => {
   const { data } = await axios.get<CategoriesResponse>(
     "https://ecommerce.routemisr.com/api/v1/categories"
@@ -21,6 +22,7 @@ export const getCategories = async (): Promise<CategoriesResponse> => {
   return data;
 };
 
+// Get category by ID
 export const getCategoryById = async (
   id: string
 ): Promise<CategoryResponse> => {

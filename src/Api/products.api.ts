@@ -35,6 +35,14 @@ export interface ProductResponse {
   data: Product;
 }
 
+interface GetFilteredProductsParams {
+  page: number;
+  limit?: number;
+  categoryId?: string;
+  subcategoryId?: string;
+}
+
+// Get products with optional category filter
 export const getProducts = async (
   page: number,
   limit = 20,
@@ -48,6 +56,34 @@ export const getProducts = async (
   return data;
 };
 
+// Get filtered products
+export const getFilteredProducts = async ({
+  page,
+  limit = 20,
+  categoryId,
+  subcategoryId,
+}: GetFilteredProductsParams): Promise<ProductsResponse> => {
+  const params = new URLSearchParams();
+
+  params.append("page", page.toString());
+  params.append("limit", limit.toString());
+
+  if (categoryId) {
+    params.append("category[in]", categoryId);
+  }
+
+  if (subcategoryId) {
+    params.append("subcategory[in]", subcategoryId);
+  }
+
+  const { data } = await axios.get<ProductsResponse>(
+    `https://ecommerce.routemisr.com/api/v1/products?${params.toString()}`
+  );
+
+  return data;
+};
+
+// Get product by ID
 export const getProductById = async (id: string): Promise<ProductResponse> => {
   const { data } = await axios.get<ProductResponse>(
     `https://ecommerce.routemisr.com/api/v1/products/${id}`

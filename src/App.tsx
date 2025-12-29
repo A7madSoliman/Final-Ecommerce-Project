@@ -3,6 +3,7 @@ import Layout from "./Components/Layout/Layout";
 import Home from "./Pages/Home/Home";
 import Categories from "./Pages/Categories/Categories";
 import CategoryDetails from "./Pages/CategoryDetails/CategoryDetails";
+import Products from "./Pages/Products/Products";
 
 function App() {
   const routes = createBrowserRouter([
@@ -13,6 +14,7 @@ function App() {
         { index: true, element: <Home /> },
         { path: "categories", element: <Categories /> },
         { path: "categories/:id", element: <CategoryDetails /> },
+        { path: "products", element: <Products /> },
       ],
     },
   ]);
