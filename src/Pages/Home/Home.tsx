@@ -24,7 +24,7 @@ export default function Home() {
         <Hero />
       </div>
 
-      <div className="container mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h2 data-aos="fade-left" className="text-2xl font-semibold mb-8">
           Shop Popular Categories
         </h2>

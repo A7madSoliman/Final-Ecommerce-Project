@@ -21,7 +21,7 @@ export default function CategoryDetails() {
   const allProducts = productsData?.pages.flatMap((page) => page.data) || [];
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="max-w-6xl mx-auto py-10">
       <div
         className="flex flex-col md:flex-row gap-8 items-center mb-10"
         data-aos="fade-up"

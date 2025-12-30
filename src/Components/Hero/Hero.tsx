@@ -6,7 +6,7 @@ export default function Hero() {
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-blue-50/60 to-transparent dark:from-gray-900" />
 
-      <div className="container mx-auto px-6 sm:px-12 lg:px-24 py-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 py-20">
         <div className="flex flex-col-reverse md:flex-row items-center gap-16">
           {/* LEFT */}
           <div className="w-full md:w-1/2 space-y-8">

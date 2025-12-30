@@ -78,15 +78,15 @@ export default function ProductCard({
           <div className="flex items-center gap-2">
             {hasDiscount ? (
               <>
-                <span className="text-xl font-bold text-gray-900 ">
+                <span className="text-sm font-bold text-gray-900 ">
                   {formatPrice(priceAfterDiscount)} L.E
                 </span>
-                <span className="text-lg text-gray-500  line-through">
+                <span className="text-xs text-gray-500  line-through">
                   {formatPrice(price)} L.E
                 </span>
               </>
             ) : (
-              <span className="text-xl font-bold text-gray-900 ">
+              <span className="text-sm font-bold text-gray-900 ">
                 {formatPrice(price)} L.E
               </span>
             )}

@@ -12,7 +12,7 @@ export default function Categories() {
   if (isError) return <p>Error loading categories</p>;
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="max-w-6xl mx-auto py-10">
       <h1 className="text-3xl font-bold mb-8">All Categories</h1>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

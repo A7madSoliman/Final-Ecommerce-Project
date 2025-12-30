@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-sm">
-      <nav className="container mx-auto h-16 px-6 flex items-center justify-between">
+      <nav className=" max-w-6xl mx-auto h-16 px-6 flex items-center justify-between">
         {/* Logo */}
         <NavLink to="/">
           <img
