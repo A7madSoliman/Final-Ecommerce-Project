@@ -16,12 +16,10 @@ export default function useProducts(filters?: UseProductsFilters) {
     initialPageParam: 1,
 
     queryFn: ({ pageParam }) => {
-      // 🔒 لو مفيش فلاتر → نفس السلوك القديم بالظبط
       if (!filters?.categoryId && !filters?.subcategoryId) {
         return getProducts(pageParam as number, 20);
       }
 
-      // ✨ لو فيه فلاتر → نستخدم الجديد
       return getFilteredProducts({
         page: pageParam as number,
         categoryId: filters?.categoryId,

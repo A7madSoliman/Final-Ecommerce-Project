@@ -22,6 +22,7 @@ export default function CategoryDetails() {
 
   return (
     <div className="max-w-6xl mx-auto py-10">
+      {/* Category Image and Name */}
       <div
         className="flex flex-col md:flex-row gap-8 items-center mb-10"
         data-aos="fade-up"
@@ -62,6 +63,7 @@ export default function CategoryDetails() {
           </div>
         )}
 
+        {/* Load More Button */}
         {hasNextPage && (
           <button
             onClick={() => fetchNextPage()}

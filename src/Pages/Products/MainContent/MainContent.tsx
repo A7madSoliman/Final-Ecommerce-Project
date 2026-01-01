@@ -18,7 +18,6 @@ export default function MainContent({
       categoryId: selectedCategoryId,
       subcategoryId: selectedSubcategoryId,
     });
-
   if (isLoading) return <Loading />;
 
   const allProducts = data?.pages.flatMap((page) => page.data) || [];

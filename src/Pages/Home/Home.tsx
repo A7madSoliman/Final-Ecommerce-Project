@@ -24,19 +24,19 @@ export default function Home() {
         <Hero />
       </div>
 
+      {/* Category Slider */}
       <div className="max-w-6xl mx-auto">
         <h2 data-aos="fade-left" className="text-2xl font-semibold mb-8">
           Shop Popular Categories
         </h2>
-
         <div data-aos="zoom-in" className="mb-8">
           <CategorySlider />
         </div>
 
+        {/* Product Cards */}
         <h2 data-aos="fade-left" className="text-2xl font-semibold mb-8">
           Featured Products
         </h2>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16">
           {data?.pages.map((page) =>
             page.data.map((product) => (
