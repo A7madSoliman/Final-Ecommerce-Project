@@ -1,7 +1,10 @@
 import { Eye, Heart, ShoppingCart, Star } from "lucide-react";
 import type { ProductCardProps } from "../../Api/products.api";
+import { Link } from "react-router-dom";
+import { useCartContext } from "../../Context/CartContext";
 
 export default function ProductCard({
+  id,
   image,
   category,
   name,
@@ -9,12 +12,13 @@ export default function ProductCard({
   priceAfterDiscount,
   ratingsAverage,
 }: ProductCardProps) {
+  const { addToCart } = useCartContext();
+
   const hasDiscount = priceAfterDiscount && priceAfterDiscount < price;
   const discountPercentage = hasDiscount
     ? Math.round(((price - priceAfterDiscount) / price) * 100)
     : 0;
 
-  // Format price to handle decimal values
   const formatPrice = (price: number) => {
     return Math.round(price);
   };
@@ -40,12 +44,14 @@ export default function ProductCard({
           <div className="layer absolute inset-0 bg-blue-400/30 dark:bg-blue-600/30 opacity-0 group-hover:opacity-100 transition-all duration-500">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-4">
               <div className="flex flex-col gap-4 transform -translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
-                <button
-                  className="bg-white/90  p-3 rounded-full shadow-lg hover:bg-white  transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  aria-label="Quick view"
-                >
-                  <Eye className="w-5 h-5 text-gray-700  hover:text-blue-600 dark:hover:text-blue-400" />
-                </button>
+                <Link to={`/products-details/${id}`}>
+                  <button
+                    className="bg-white/90  p-3 rounded-full shadow-lg hover:bg-white  transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                    aria-label="Quick view"
+                  >
+                    <Eye className="w-5 h-5 text-gray-700  hover:text-blue-600 dark:hover:text-blue-400" />
+                  </button>
+                </Link>
                 <button
                   className="bg-white/90  p-3 rounded-full shadow-lg hover:bg-white  transition-all duration-300 hover:scale-110 hover:shadow-xl delay-75 focus:outline-none focus:ring-2 focus:ring-red-500"
                   aria-label="Add to wishlist"
@@ -53,7 +59,8 @@ export default function ProductCard({
                   <Heart className="w-5 h-5 text-gray-700 hover:text-red-500 dark:hover:text-red-400" />
                 </button>
                 <button
-                  className="bg-white/90  p-3 rounded-full shadow-lg hover:bg-white  transition-all duration-300 hover:scale-110 hover:shadow-xl delay-150 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  onClick={() => addToCart({ productId: id, count: 1 })}
+                  className="bg-white/90  p-3 rounded-full shadow-lg hover:bg-white  transition-all duration-300 hover:scale-110 hover:shadow-xl delay-150 focus:outline-none focus:ring-2 focus:ring-green-500 cursor-pointer"
                   aria-label="Add to cart"
                 >
                   <ShoppingCart className="w-5 h-5 text-gray-700  hover:text-green-600 " />

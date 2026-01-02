@@ -1,0 +1,83 @@
+import { useParams } from "react-router-dom";
+import useProduct from "../../Hooks/useProduct";
+import Loading from "../../Components/Loading/Loading";
+import ReactImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import { Star } from "lucide-react";
+
+export default function ProductsDetails() {
+  const { id } = useParams<{ id: string }>();
+
+  if (!id) return <p>Invalid product</p>;
+
+  const { data, isLoading } = useProduct(id);
+
+  if (isLoading) return <Loading />;
+
+  const imageItems =
+    data?.data?.images?.map((imageUrl: string) => ({
+      original: imageUrl,
+      thumbnail: imageUrl,
+    })) ?? [];
+
+  return (
+    <section className="max-w-6xl mx-auto py-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+        {/* Slider */}
+        <div className="md:col-span-5">
+          <ReactImageGallery
+            items={imageItems}
+            showNav
+            showFullscreenButton
+            showPlayButton={false}
+            thumbnailPosition="bottom"
+          />
+        </div>
+
+        {/* Details */}
+        <div className="md:col-span-7 flex flex-col gap-6">
+          {/* Title */}
+          <h2 className="text-3xl font-bold text-gray-900">
+            {data?.data.title}
+          </h2>
+
+          {/* Rating */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 bg-yellow-50 text-yellow-600 px-3 py-1 rounded-full text-sm font-medium">
+              <Star size={16} className="fill-yellow-400 text-yellow-400" />
+              {data?.data.ratingsAverage}
+            </div>
+            <span className="text-sm text-gray-500">(Customer Reviews)</span>
+          </div>
+
+          {/* Price */}
+          <div className="flex items-end gap-3">
+            <span className="text-3xl font-bold text-green-600">
+              {data?.data.price} LE
+            </span>
+            <span className="text-sm text-gray-500">Inclusive of VAT</span>
+          </div>
+
+          {/* Divider */}
+          <hr className="border-gray-200" />
+
+          {/* Description */}
+          <p className="text-gray-600 leading-relaxed">
+            {data?.data.description}
+          </p>
+
+          {/* Actions */}
+          <div className="flex items-center gap-4 mt-4">
+            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition">
+              Add to Cart
+            </button>
+
+            <button className="w-12 h-12 flex items-center justify-center rounded-xl border border-gray-300 hover:bg-gray-100 transition">
+              ❤️
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

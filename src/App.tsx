@@ -6,6 +6,8 @@ import CategoryDetails from "./Pages/CategoryDetails/CategoryDetails";
 import Products from "./Pages/Products/Products";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
+import CartPage from "./Pages/CartPage/CartPage";
+import ProductsDetails from "./Pages/ProductsDetails/ProductsDetails";
 
 function App() {
   const routes = createBrowserRouter([
@@ -19,6 +21,8 @@ function App() {
         { path: "products", element: <Products /> },
         { path: "register", element: <Register /> },
         { path: "login", element: <Login /> },
+        { path: "cart", element: <CartPage /> },
+        { path: "products-details/:id", element: <ProductsDetails /> },
       ],
     },
   ]);
