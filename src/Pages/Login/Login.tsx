@@ -1,5 +1,6 @@
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -64,9 +65,12 @@ export default function Login() {
         <div className="mt-8 text-center pt-6 border-t border-gray-200 dark:border-gray-600">
           <p className="text-gray-600 dark:text-gray-400">
             Do you have an account?{" "}
-            <span className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors duration-300 cursor-pointer">
+            <Link
+              to="/register"
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors duration-300 cursor-pointer"
+            >
               Rigster Now!
-            </span>
+            </Link>
           </p>
         </div>
       </div>
