@@ -11,6 +11,14 @@ import ProductsDetails from "./Pages/ProductsDetails/ProductsDetails";
 import ForgetPassword from "./Pages/ForgetPassword/ForgetPassword";
 import VerifyResetCode from "./Pages/VerifyResetCode/VerifyResetCode";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthProvider } from "./Context/AuthContext";
+import ThemeProvider from "./Context/ThemeContext";
+import { Toaster } from "react-hot-toast";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProtectedRoute, {
+  GuestRoute,
+} from "./Components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   const routes = createBrowserRouter([
@@ -19,20 +27,56 @@ function App() {
       element: <Layout />,
       children: [
         { index: true, element: <Home /> },
+        { path: "products", element: <Products /> },
+        { path: "products-details/:id", element: <ProductsDetails /> },
         { path: "categories", element: <Categories /> },
         { path: "categories/:id", element: <CategoryDetails /> },
-        { path: "products", element: <Products /> },
-        { path: "register", element: <Register /> },
-        { path: "login", element: <Login /> },
-        { path: "cart", element: <CartPage /> },
-        { path: "products-details/:id", element: <ProductsDetails /> },
+
+        // Guest Routes
+        {
+          path: "login",
+          element: (
+            <GuestRoute>
+              <Login />
+            </GuestRoute>
+          ),
+        },
+        {
+          path: "register",
+          element: (
+            <GuestRoute>
+              <Register />
+            </GuestRoute>
+          ),
+        },
+        // Protected Routes
+        {
+          path: "cart",
+          element: (
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          ),
+        },
         { path: "forgot-password", element: <ForgetPassword /> },
         { path: "verify-reset-code", element: <VerifyResetCode /> },
         { path: "reset-password", element: <ResetPassword /> },
       ],
     },
   ]);
-  return <RouterProvider router={routes} />;
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ThemeProvider>
+          <Toaster position="top-right" reverseOrder={false} />
+          <RouterProvider router={routes} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ThemeProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

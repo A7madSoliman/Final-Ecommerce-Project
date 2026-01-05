@@ -29,7 +29,7 @@ export default function Login() {
     <section className="max-w-lg mx-auto">
       <div className="rounded-lg p-8 mt-10 border border-gray-300 shadow-lg">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
-          Sign In
+          Log In
         </h2>
 
         <form onSubmit={formik.handleSubmit}>

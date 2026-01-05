@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const BASE_URL = "https://ecommerce.routemisr.com/api/v1";
+import axiosInstance from "./axiosInstance";
 
 export interface SignupPayLoad {
   name: string;
@@ -29,29 +27,29 @@ export interface ResetPasswordPayLoad {
 }
 
 export const signUp = async (data: SignupPayLoad) => {
-  const response = await axios.post(`${BASE_URL}/auth/signup`, data);
+  const response = await axiosInstance.post("/auth/signup", data);
 
   return response.data;
 };
 
 export const login = async (data: LoginPayLoad) => {
-  const response = await axios.post(`${BASE_URL}/auth/signin`, data);
+  const response = await axiosInstance.post("/auth/signin", data);
 
   return response.data;
 };
 
 export const forgetPassword = async (data: ForgetPasswordPayLoad) => {
-  const response = await axios.post(`${BASE_URL}/auth/forgotPasswords`, data);
+  const response = await axiosInstance.post("/auth/forgotPasswords", data);
 
   return response.data;
 };
 
 export const verifyResetCode = async (data: VerifyResetCodePayLoad) => {
-  const response = await axios.post(`${BASE_URL}/auth/verifyResetCode`, data);
+  const response = await axiosInstance.post("/auth/verifyResetCode", data);
   return response.data;
 };
 
 export const resetPassword = async (data: ResetPasswordPayLoad) => {
-  const response = await axios.put(`${BASE_URL}/auth/resetPassword`, data);
+  const response = await axiosInstance.put("/auth/resetPassword", data);
   return response.data;
 };

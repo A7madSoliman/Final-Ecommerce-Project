@@ -26,6 +26,7 @@ export default function CategoryDetails() {
       <div
         className="flex flex-col md:flex-row gap-8 items-center mb-10"
         data-aos="fade-up"
+        key={categoryData?.data._id}
       >
         <img
           src={categoryData?.data.image}

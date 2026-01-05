@@ -8,6 +8,7 @@ export default function useForgetPassword() {
 
     onSuccess: (data) => {
       toast.success(data.message);
+      console.log(data.message);
     },
 
     onError: (error: any) => {

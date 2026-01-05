@@ -3,12 +3,13 @@ import { useState } from "react";
 import * as Yup from "yup";
 import useSignup from "../../Hooks/useSignup";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { mutate: signup, isPending } = useSignup();
+  const { mutate: signup, isPending, isSuccess } = useSignup();
 
   const RegisterSchema = Yup.object({
     name: Yup.string().min(2, "Too Short!").required("Username is required"),
@@ -35,6 +36,12 @@ export default function Register() {
     onSubmit: (values) => signup(values),
     validationSchema: RegisterSchema,
   });
+
+  setTimeout(() => {
+    if (isSuccess) {
+      return navigate("/login");
+    }
+  }, 1500);
 
   return (
     <section className="max-w-lg mx-auto">
