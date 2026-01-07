@@ -34,7 +34,7 @@ export default function ForgetPassword() {
     <section className="max-w-lg mx-auto">
       <div className="rounded-lg p-8 mt-10 border border-gray-300 shadow-lg">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
-          Reset Password
+          Forget Password
         </h2>
         <form onSubmit={formik.handleSubmit}>
           <div className="mt-4">

@@ -1,5 +1,5 @@
 import { Eye, EyeOff, Key, Lock, Mail, Phone, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import useSignup from "../../Hooks/useSignup";
 import { useFormik } from "formik";
@@ -37,11 +37,12 @@ export default function Register() {
     validationSchema: RegisterSchema,
   });
 
-  setTimeout(() => {
+  useEffect(() => {
     if (isSuccess) {
-      return navigate("/login");
+      const timer = setTimeout(() => navigate("/login"), 1500);
+      return () => clearTimeout(timer);
     }
-  }, 1500);
+  }, [isSuccess]);
 
   return (
     <section className="max-w-lg mx-auto">

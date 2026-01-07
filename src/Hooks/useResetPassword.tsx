@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
-import { resetPassword, type ResetPasswordPayLoad } from "../Api/auth.api";
+import { resetPassword } from "../Api/auth.api";
 import { useMutation } from "@tanstack/react-query";
+import type { ResetPasswordPayLoad } from "../Types/auth.types";
 
 export default function useResetPassword() {
   return useMutation({
@@ -8,6 +9,7 @@ export default function useResetPassword() {
 
     onSuccess: () => {
       toast.success("Password reset successfully");
+      localStorage.removeItem("resetEmail");
     },
 
     onError: (error: any) => {
