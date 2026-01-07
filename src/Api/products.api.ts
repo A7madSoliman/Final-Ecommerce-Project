@@ -1,46 +1,9 @@
 import axios from "axios";
-
-export interface Product {
-  _id: string;
-  title: string;
-  description: string;
-  imageCover: string;
-  images: string[];
-  price: number;
-  priceAfterDiscount?: number;
-  ratingsAverage: number;
-  ratingsQuantity: number;
-  category: {
-    _id: string;
-    name: string;
-  };
-}
-
-export interface ProductCardProps {
-  id: string;
-  image: string;
-  category: string;
-  name: string;
-  price: number;
-  priceAfterDiscount?: number;
-  ratingsAverage?: number;
-}
-
-export interface ProductsResponse {
-  data: Product[];
-  results: number;
-}
-
-export interface ProductResponse {
-  data: Product;
-}
-
-interface GetFilteredProductsParams {
-  page: number;
-  limit?: number;
-  categoryId?: string;
-  subcategoryId?: string;
-}
+import type {
+  GetFilteredProductsParams,
+  ProductResponse,
+  ProductsResponse,
+} from "../Types/products.types";
 
 // Get products with optional category filter
 export const getProducts = async (

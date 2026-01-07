@@ -1,14 +1,5 @@
 import axios from "axios";
-
-export interface Subcategory {
-  _id: string;
-  name: string;
-  category: string;
-}
-
-export interface SubcategoriesResponse {
-  data: Subcategory[];
-}
+import type { SubcategoriesResponse } from "../Types/subcategory.types";
 
 export const getSubcategoriesByCategory = async (
   categoryId: string

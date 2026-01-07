@@ -1,6 +1,7 @@
 import { Eye, Heart, ShoppingCart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { ProductCardProps } from "../../Api/products.api";
+import type { ProductCardProps } from "../../Types/products.types";
+import { useCart } from "../../Hooks/useCart";
 
 export default function ProductCard({
   id,
@@ -11,12 +12,14 @@ export default function ProductCard({
   priceAfterDiscount,
   ratingsAverage,
 }: ProductCardProps) {
+  const { addToCart, cart, isAdding } = useCart();
   const hasDiscount = priceAfterDiscount && priceAfterDiscount < price;
   const discountPercentage = hasDiscount
     ? Math.round(((price - priceAfterDiscount) / price) * 100)
     : 0;
   const formatPrice = (price: number) => Math.round(price);
 
+  console.log(cart?.data.products);
   return (
     <div className="p-2 relative rounded-md overflow-hidden group cursor-pointer bg-white border border-gray-300 transition-colors duration-300 hover:shadow-lg">
       <div className="relative rounded-md overflow-hidden">
@@ -45,6 +48,7 @@ export default function ProductCard({
                 <Heart className="w-5 h-5 text-gray-700 hover:text-red-500 dark:hover:text-red-400" />
               </button>
               <button
+                onClick={() => addToCart(id)}
                 className="bg-white/90 p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl delay-150 focus:outline-none focus:ring-2 focus:ring-green-500 cursor-pointer"
                 aria-label="Add to cart"
               >

@@ -1,9 +1,6 @@
-import {
-  getProducts,
-  getFilteredProducts,
-  type ProductsResponse,
-} from "../Api/products.api";
+import { getProducts, getFilteredProducts } from "../Api/products.api";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import type { ProductsResponse } from "../Types/products.types";
 
 interface UseProductsFilters {
   categoryId?: string;

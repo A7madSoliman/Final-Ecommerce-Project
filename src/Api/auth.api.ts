@@ -1,3 +1,10 @@
+import type {
+  ForgetPasswordPayLoad,
+  LoginPayLoad,
+  ResetPasswordPayLoad,
+  SignupPayLoad,
+  VerifyResetCodePayLoad,
+} from "../Types/auth.types";
 import axiosInstance from "./axiosInstance";
 
 export const signUp = async (data: SignupPayLoad) => {
