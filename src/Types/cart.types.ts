@@ -1,15 +1,18 @@
-import { BookDashed } from "lucide-react";
-
-export interface CartProduct {
+export interface CartProductInfo {
   _id: string;
   title: string;
-  price: number;
-  count: number;
   imageCover: string;
 }
 
+export interface CartProduct {
+  _id: string; // cart item id
+  count: number;
+  price: number;
+  product: CartProductInfo;
+}
+
 export interface CartData {
-  _id: string;
+  _id: string; // cart id
   products: CartProduct[];
   totalCartPrice: number;
 }

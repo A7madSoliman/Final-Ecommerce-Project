@@ -1,14 +1,24 @@
 import { NavLink } from "react-router-dom";
 import logo from "@/assets/freshcart-logo.svg";
-import { LogOut, Menu, Moon, ShoppingCart, Sun, X } from "lucide-react";
+import {
+  Loader2,
+  LogOut,
+  Menu,
+  Moon,
+  ShoppingCart,
+  Sun,
+  X,
+} from "lucide-react";
 import { useTheme } from "../../Context/ThemeContext";
 import { useState } from "react";
 import { useAuth } from "../../Context/AuthContext";
+import { useCart } from "../../Hooks/useCart";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const { isLoggedIn, logout } = useAuth();
+  const { cart, isAdding, isFetching } = useCart();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -66,7 +76,11 @@ export default function Navbar() {
           <NavLink to="/cart" className="relative">
             <ShoppingCart className="w-5 h-5 text-gray-700 dark:text-gray-200" />
             <span className="absolute -top-3 -right-3 bg-blue-500 text-white w-5 h-5 rounded-full text-xs flex items-center justify-center">
-              0
+              {isAdding || isFetching ? (
+                <Loader2 className="w-3 h-3 animate-spin" />
+              ) : (
+                cart?.numOfCartItems || 0
+              )}
             </span>
           </NavLink>
 

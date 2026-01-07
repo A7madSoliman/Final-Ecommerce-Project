@@ -19,6 +19,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProtectedRoute, {
   GuestRoute,
 } from "./Components/ProtectedRoute/ProtectedRoute";
+import CheckOut from "./Pages/CheckOut/CheckOut";
 
 function App() {
   const routes = createBrowserRouter([
@@ -55,6 +56,14 @@ function App() {
           element: (
             <ProtectedRoute>
               <CartPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "check-out",
+          element: (
+            <ProtectedRoute>
+              <CheckOut />
             </ProtectedRoute>
           ),
         },

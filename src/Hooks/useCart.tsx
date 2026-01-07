@@ -75,17 +75,14 @@ export function useCart() {
 
   return {
     //=============================
-    //         DATA
+    //         DATA & ACTIONS
     //=============================
 
     cart: cartQuery.data,
-    isLoading: cartQuery.data,
-    isError: cartQuery.data,
-
-    //=============================
-    //         ACTIONS
-    //=============================
+    isError: cartQuery.isError,
+    isLoading: cartQuery.isLoading,
     isAdding: addMutation.isPending,
+    isFetching: cartQuery.isFetching,
     addToCart: addMutation.mutate,
     removeFromCart: removeMutation.mutate,
     updateCart: updateMutation.mutate,
