@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { createCashOrder, createOnlineOrder } from "../Api/checkout.api";
 import { useAuth } from "../Context/AuthContext";
 import type { CheckoutPayLoad } from "../Types/checkout.types";
+import { useNavigate } from "react-router-dom";
 
 interface CheckoutArgs {
   cartId: string;
@@ -10,6 +11,7 @@ interface CheckoutArgs {
 }
 
 export function useCheckout() {
+  const navigate = useNavigate();
   const { token } = useAuth();
   const queryClient = useQueryClient();
 
@@ -20,6 +22,7 @@ export function useCheckout() {
 
     onSuccess: () => {
       toast.success("Order placed successfully 🎉");
+      navigate("/allorders");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
 
@@ -51,5 +54,7 @@ export function useCheckout() {
 
     isCashLoading: cashMutation.isPending,
     isOnlineLoading: onlineMutation.isPending,
+
+    isCashSucces: cashMutation.isSuccess,
   };
 }

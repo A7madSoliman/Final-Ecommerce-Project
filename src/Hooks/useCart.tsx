@@ -9,15 +9,20 @@ import {
 import { useAuth } from "../Context/AuthContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CartResponse, UpdateCountPayLoad } from "../Types/cart.types";
+import { useState } from "react";
 
 export function useCart() {
+  const [addingId, setAddingId] = useState<string | null>(null);
+  const [updatingIds, setUpdatingIds] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const [removingId, setRemovingId] = useState<string | null>(null);
   const { token } = useAuth();
   const queryClient = useQueryClient();
 
   //=============================
-  //         Get Cart
+  // Get Cart
   //=============================
-
   const cartQuery = useQuery<CartResponse>({
     queryKey: ["cart"],
     queryFn: () => getCart(token!).then((res) => res.data),
@@ -26,45 +31,53 @@ export function useCart() {
   });
 
   //=============================
-  //         Add Product
+  // Add Product
   //=============================
-
   const addMutation = useMutation({
-    mutationFn: (productId: string) => addToCart(token!, productId),
+    mutationFn: (productId: string) => {
+      setAddingId(productId);
+      return addToCart(token!, productId);
+    },
     onSuccess: () => {
-      toast.success("Product Addes To Cart");
+      toast.success("Product Added To Cart");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
+    onSettled: () => setAddingId(null),
   });
 
   //=============================
-  //         Remove Product
+  // Remove Product
   //=============================
-
   const removeMutation = useMutation({
-    mutationFn: (productId: string) => removeFromCart(token!, productId),
+    mutationFn: (productId: string) => {
+      setRemovingId(productId);
+      return removeFromCart(token!, productId);
+    },
     onSuccess: () => {
       toast.success("Product Removed From Cart");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
+    onSettled: () => setRemovingId(null),
   });
 
   //=============================
-  //         Update Product
+  // Update Product Count
   //=============================
-
   const updateMutation = useMutation({
-    mutationFn: ({ productId, count }: UpdateCountPayLoad) =>
-      updateCartItems(token!, productId, count),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    mutationFn: ({ productId, count }: UpdateCountPayLoad) => {
+      setUpdatingIds((prev) => ({ ...prev, [productId]: true }));
+      return updateCartItems(token!, productId, count);
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
+    onSettled: (_data, _error, variables) => {
+      const productId = variables.productId;
+      setUpdatingIds((prev) => ({ ...prev, [productId]: false }));
     },
   });
 
   //=============================
-  //         Clear Cart
+  // Clear Cart
   //=============================
-
   const clearMutation = useMutation({
     mutationFn: () => clearCart(token!),
     onSuccess: () => {
@@ -74,18 +87,19 @@ export function useCart() {
   });
 
   return {
-    //=============================
-    //         DATA & ACTIONS
-    //=============================
-
     cart: cartQuery.data,
     isError: cartQuery.isError,
     isLoading: cartQuery.isLoading,
-    isAdding: addMutation.isPending,
     isFetching: cartQuery.isFetching,
+    isAdding: addMutation.isPending,
+    isRemoving: removeMutation.isPending,
     addToCart: addMutation.mutate,
     removeFromCart: removeMutation.mutate,
     updateCart: updateMutation.mutate,
     clearCart: clearMutation.mutate,
+    clearAllCart: clearMutation.isPending,
+    addingId,
+    updatingIds,
+    removingId,
   };
 }

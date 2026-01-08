@@ -3,8 +3,10 @@ import Loading from "../../Components/Loading/Loading";
 import { useCart } from "../../Hooks/useCart";
 import CartSummary from "./CartSummary/CartSummary";
 import CartItem from "./CartItem/CartItem";
+import useAOS from "../../Hooks/useAOS";
 
 export default function CartPage() {
+  useAOS();
   const { cart, isLoading } = useCart();
 
   if (isLoading) {
@@ -33,7 +35,7 @@ export default function CartPage() {
     <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="md:col-span-2 space-y-4">
         {cart.data.products.map((item) => (
-          <CartItem key={item._id} item={item} />
+          <CartItem data-aos="fade-up" key={item._id} item={item} />
         ))}
       </div>
       <div>

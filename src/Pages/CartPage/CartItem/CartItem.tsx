@@ -8,7 +8,10 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const { updateCart, removeFromCart, isAdding, isFetching } = useCart();
+  const { updateCart, updatingIds, removeFromCart, removingId } = useCart();
+
+  const isUpdating = updatingIds[item.product._id] || false;
+  const isRemoving = removingId === item.product._id;
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-between p-4 bg-white rounded-lg shadow hover:shadow-lg transition duration-300">
@@ -20,7 +23,7 @@ export default function CartItem({ item }: CartItemProps) {
           className="w-20 h-20 object-cover rounded"
         />
         <div>
-          <h3 className="font-semibold text-gray-800 ">
+          <h3 className="font-semibold text-gray-800">
             {truncateWords(item.product.title, 2)}
           </h3>
           <p className="text-gray-500">{item.price} L.E</p>
@@ -33,36 +36,34 @@ export default function CartItem({ item }: CartItemProps) {
           onClick={() =>
             updateCart({ productId: item.product._id, count: item.count - 1 })
           }
-          disabled={item.count === 1}
+          disabled={isUpdating || item.count === 1}
           className="cursor-pointer px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
         >
-          {isAdding || isFetching ? (
-            <Loader2 className="w-3 animate-spin" />
-          ) : (
-            "-"
-          )}
+          {isUpdating ? <Loader2 className="w-3 animate-spin" /> : "-"}
         </button>
         <span className="px-3 font-medium">{item.count}</span>
         <button
           onClick={() =>
             updateCart({ productId: item.product._id, count: item.count + 1 })
           }
+          disabled={isUpdating}
           className="cursor-pointer px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
         >
-          {isAdding || isFetching ? (
-            <Loader2 className="w-3 animate-spin" />
-          ) : (
-            "+"
-          )}
+          {isUpdating ? <Loader2 className="w-3 animate-spin" /> : "+"}
         </button>
       </div>
 
       {/* Right: Remove */}
       <button
         onClick={() => removeFromCart(item.product._id)}
+        disabled={isRemoving}
         className="cursor-pointer text-red-500 hover:text-red-700 transition mt-2 md:mt-0"
       >
-        <Trash2 size={20} />
+        {isRemoving ? (
+          <Loader2 className="animate-spin w-5 h-5" />
+        ) : (
+          <Trash2 size={20} />
+        )}
       </button>
     </div>
   );

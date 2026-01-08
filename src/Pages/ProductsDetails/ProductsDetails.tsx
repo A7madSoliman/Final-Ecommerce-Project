@@ -3,16 +3,27 @@ import useProduct from "../../Hooks/useProduct";
 import Loading from "../../Components/Loading/Loading";
 import ReactImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import { Star } from "lucide-react";
+import { Heart, Loader2, Star } from "lucide-react";
+import { useCart } from "../../Hooks/useCart";
+import { useWishList } from "../../Hooks/useWishList";
 
 export default function ProductsDetails() {
   const { id } = useParams<{ id: string }>();
+  const { addToCart, isAdding } = useCart();
+  const { data, isLoading } = useProduct(id ?? "");
+  const {
+    isAddingToWishList,
+    isRemovingFromWishlist,
+    wishlist,
+    addToWishList,
+    removeFromWishList,
+  } = useWishList();
 
   if (!id) return <p>Invalid product</p>;
-
-  const { data, isLoading } = useProduct(id);
-
   if (isLoading) return <Loading />;
+
+  const isInWishlist = wishlist?.data?.some((item) => item._id === id);
+  const isWishLoading = isAddingToWishList || isRemovingFromWishlist;
 
   const imageItems =
     data?.data?.images?.map((imageUrl: string) => ({
@@ -68,12 +79,35 @@ export default function ProductsDetails() {
 
           {/* Actions */}
           <div className="flex items-center gap-4 mt-4">
-            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition">
-              Add to Cart
+            <button
+              onClick={() => addToCart(id)}
+              className="flex-1 flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition cursor-pointer"
+            >
+              {isAdding ? (
+                <Loader2 className="w-6 h-6 animate-spin " />
+              ) : (
+                "Add to Cart"
+              )}
             </button>
 
-            <button className="w-12 h-12 flex items-center justify-center rounded-xl border border-gray-300 hover:bg-gray-100 transition">
-              ❤️
+            <button
+              onClick={() =>
+                isInWishlist ? removeFromWishList(id) : addToWishList(id)
+              }
+              disabled={isWishLoading}
+              className="w-12 h-12 flex items-center justify-center rounded-xl border border-gray-300 hover:bg-gray-100 transition cursor-pointer"
+            >
+              {isWishLoading ? (
+                <Loader2 className="w-5 h-5 animate-spin text-red-600" />
+              ) : (
+                <Heart
+                  className={`w-5 h-5 transition-colors duration-300 ${
+                    isInWishlist
+                      ? "text-red-600 fill-red-600"
+                      : "text-gray-700 hover:text-red-500"
+                  }`}
+                />
+              )}
             </button>
           </div>
         </div>

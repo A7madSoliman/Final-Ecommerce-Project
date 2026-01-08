@@ -2,6 +2,7 @@ import { Eye, Heart, Loader2, ShoppingCart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ProductCardProps } from "../../Types/products.types";
 import { useCart } from "../../Hooks/useCart";
+import { useWishList } from "../../Hooks/useWishList";
 
 export default function ProductCard({
   id,
@@ -12,7 +13,23 @@ export default function ProductCard({
   priceAfterDiscount,
   ratingsAverage,
 }: ProductCardProps) {
-  const { addToCart, cart, isAdding } = useCart();
+  const { cart, addToCart, removeFromCart, isAdding, isRemoving } = useCart();
+  const {
+    wishlist,
+    removeFromWishList,
+    addToWishList,
+    isAddingToWishList,
+    isRemovingFromWishlist,
+  } = useWishList();
+
+  const isInCart = cart?.data?.products?.some(
+    (item) => item.product._id === id
+  );
+  const isCartLoading = isAdding || isRemoving;
+
+  const isInWishlist = wishlist?.data?.some((item) => item._id === id);
+  const isWishLoading = isAddingToWishList || isRemovingFromWishlist;
+
   const hasDiscount = priceAfterDiscount && priceAfterDiscount < price;
   const discountPercentage = hasDiscount
     ? Math.round(((price - priceAfterDiscount) / price) * 100)
@@ -41,21 +58,48 @@ export default function ProductCard({
                 </button>
               </Link>
               <button
-                className="bg-white/90 p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl delay-75 focus:outline-none focus:ring-2 focus:ring-red-500"
-                aria-label="Add to wishlist"
+                onClick={() =>
+                  isInWishlist ? removeFromWishList(id) : addToWishList(id)
+                }
+                disabled={isWishLoading}
+                className="bg-white/90 p-3 rounded-full shadow-lg
+             hover:bg-white transition-all duration-300
+             hover:scale-110 hover:shadow-xl delay-75
+             cursor-pointer"
+                aria-label="Toggle wishlist"
               >
-                <Heart className="w-5 h-5 text-gray-700 hover:text-red-500 dark:hover:text-red-400" />
+                {isWishLoading ? (
+                  <Loader2 className="w-5 h-5 animate-spin text-red-600" />
+                ) : (
+                  <Heart
+                    className={`w-5 h-5 transition-colors duration-300 ${
+                      isInWishlist
+                        ? "text-red-600 fill-red-600"
+                        : "text-gray-700 hover:text-red-500"
+                    }`}
+                  />
+                )}
               </button>
+
               <button
-                onClick={() => addToCart(id)}
-                disabled={isAdding}
-                className="bg-white/90 p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl delay-150 cursor-pointer"
-                aria-label="Add to cart"
+                onClick={() => (isInCart ? removeFromCart(id) : addToCart(id))}
+                disabled={isCartLoading}
+                className="bg-white/90 p-3 rounded-full shadow-lg
+                     hover:bg-white transition-all duration-300
+                    hover:scale-110 hover:shadow-xl delay-150
+                    cursor-pointer"
+                aria-label="Toggle cart"
               >
-                {isAdding ? (
+                {isCartLoading ? (
                   <Loader2 className="w-5 h-5 animate-spin text-green-600" />
                 ) : (
-                  <ShoppingCart className="w-5 h-5 text-gray-700 hover:text-green-600" />
+                  <ShoppingCart
+                    className={`w-5 h-5 transition-colors duration-300 ${
+                      isInCart
+                        ? "text-green-600 fill-green-600"
+                        : "text-gray-700 hover:text-green-600"
+                    }`}
+                  />
                 )}
               </button>
             </div>

@@ -20,6 +20,8 @@ import ProtectedRoute, {
   GuestRoute,
 } from "./Components/ProtectedRoute/ProtectedRoute";
 import CheckOut from "./Pages/CheckOut/CheckOut";
+import AllOrders from "./Pages/AllOrders/AllOrders";
+import Wishlist from "./Pages/Wishlist/Wishlist";
 
 function App() {
   const routes = createBrowserRouter([
@@ -64,6 +66,22 @@ function App() {
           element: (
             <ProtectedRoute>
               <CheckOut />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "allorders",
+          element: (
+            <ProtectedRoute>
+              <AllOrders />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "wishlist",
+          element: (
+            <ProtectedRoute>
+              <Wishlist />
             </ProtectedRoute>
           ),
         },

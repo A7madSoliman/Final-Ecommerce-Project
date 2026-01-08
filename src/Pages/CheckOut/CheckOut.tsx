@@ -95,7 +95,7 @@ export default function Checkout() {
                 payload: formik.values,
               });
             }}
-            className="flex-1 flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:opacity-60"
+            className="flex-1 flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:opacity-60 cursor-pointer"
           >
             {isCashLoading ? (
               <Loader2 className="animate-spin" />
@@ -119,7 +119,7 @@ export default function Checkout() {
                 payload: formik.values,
               });
             }}
-            className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-60"
+            className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-60 cursor-pointer"
           >
             {isOnlineLoading ? (
               <Loader2 className="animate-spin" />
