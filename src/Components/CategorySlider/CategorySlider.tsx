@@ -7,6 +7,7 @@ import CategorySkeleton from "../CategorySkeleton/CategorySkeleton";
 export default function CategorySlider() {
   const { data, isLoading, isError } = useCategories();
 
+  // ❌ Error State
   if (isError) {
     return (
       <div className="text-center py-10 text-red-500">
@@ -16,51 +17,73 @@ export default function CategorySlider() {
   }
 
   return (
-    <section className="mb-8">
+    <section className="mb-8" aria-label="Categories slider">
       <Swiper
         spaceBetween={16}
         loop
         autoplay={{
-          delay: 2000,
+          delay: 2500,
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
         breakpoints={{
-          0: {
-            slidesPerView: 2,
-          },
-          480: {
-            slidesPerView: 3,
-          },
-          768: {
-            slidesPerView: 4,
-          },
-          1024: {
-            slidesPerView: 6,
-          },
+          0: { slidesPerView: 2 },
+          480: { slidesPerView: 3 },
+          768: { slidesPerView: 4 },
+          1024: { slidesPerView: 6 },
         }}
         modules={[Autoplay]}
       >
-        {isLoading
-          ? Array.from({ length: 5 }).map((_, i) => (
-              <SwiperSlide key={i}>
-                <CategorySkeleton />
-              </SwiperSlide>
-            ))
-          : data?.data.map((category) => (
-              <SwiperSlide key={category._id}>
-                <div className="bg-white border border-gray-300 rounded-lg shadow-md p-3 sm:p-4">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-64 object-cover sm:h-32 rounded-md"
-                  />
-                  <h3 className="text-center mt-2 text-sm sm:text-base text-gray-800 dark:text-gray-500">
-                    {category.name}
-                  </h3>
-                </div>
-              </SwiperSlide>
-            ))}
+        {/* 🔄 Loading State */}
+        {isLoading &&
+          Array.from({ length: 6 }).map((_, i) => (
+            <SwiperSlide key={i}>
+              <CategorySkeleton />
+            </SwiperSlide>
+          ))}
+
+        {/* ✅ Success State */}
+        {!isLoading &&
+          data?.data?.map((category) => (
+            <SwiperSlide key={category._id}>
+              <div
+                className="
+                  bg-white 
+                  border border-gray-200
+                  rounded-xl shadow-sm
+                  p-3 sm:p-4
+                  transition hover:shadow-md
+                "
+              >
+                {/* 🖼 Category Image */}
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  loading="lazy"
+                  className="
+                    w-full
+                    h-28 sm:h-32 md:h-36
+                    object-cover
+                    rounded-md
+                  "
+                />
+
+                {/* 🏷 Category Name */}
+                <h3
+                  className="
+                    text-center mt-2
+                    text-sm sm:text-base
+                    font-medium
+                    text-gray-800 
+                    truncate
+                  "
+                  title={category.name}
+                >
+                  {category.name}
+                </h3>
+              </div>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </section>
   );

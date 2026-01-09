@@ -29,7 +29,7 @@ export default function Home() {
         <h2 data-aos="fade-left" className="text-2xl font-semibold mb-8">
           Shop Popular Categories
         </h2>
-        <div data-aos="zoom-in" className="mb-8">
+        <div data-aos="zoom-in" className="mb-8 ">
           <CategorySlider />
         </div>
 

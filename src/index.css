@@ -123,3 +123,12 @@ body {
     opacity: 1;
   }
 }
+
+/* globals.css */
+.mobile-btn {
+  @apply p-2 rounded-full active:scale-95 transition;
+}
+
+.mobile-icon {
+  @apply w-5 h-5;
+}

@@ -3,97 +3,109 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-300 pt-16 pb-10 shadow-lg ">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10 ">
-        {/* 1st part */}
-        <div className="space-y-4">
+    <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-300 pt-16 pb-10">
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* 🏢 Company */}
+        <nav className="space-y-4" aria-label="Company links">
           <h2 className="text-lg font-bold">Company</h2>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            About Us
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Careers
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Blogs
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Gift Cards
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Magazine
-          </Link>
-        </div>
+          {["About Us", "Careers", "Blogs", "Gift Cards", "Magazine"].map(
+            (item) => (
+              <Link
+                key={item}
+                to="#"
+                className="block text-sm transition hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {item}
+              </Link>
+            )
+          )}
+        </nav>
 
-        {/* 2nd part */}
-        <div className="space-y-4">
+        {/* 🛠 Support */}
+        <nav className="space-y-4" aria-label="Support links">
           <h2 className="text-lg font-bold">Support</h2>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Contact
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Legal Notice
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Privacy
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Terms & Conditions
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Sitemap
-          </Link>
-        </div>
+          {[
+            "Contact",
+            "Legal Notice",
+            "Privacy",
+            "Terms & Conditions",
+            "Sitemap",
+          ].map((item) => (
+            <Link
+              key={item}
+              to="#"
+              className="block text-sm transition hover:text-blue-600 dark:hover:text-blue-400"
+            >
+              {item}
+            </Link>
+          ))}
+        </nav>
 
-        {/* 3rd part */}
-        <div className="space-y-4">
+        {/* ⚙️ Services */}
+        <nav className="space-y-4" aria-label="Other services">
           <h2 className="text-lg font-bold">Other Services</h2>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Service 1
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Service 2
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Service 3
-          </Link>
-          <Link to="#" className="block text-sm hover:text-blue-600">
-            Service 4
-          </Link>
-        </div>
+          {["Service 1", "Service 2", "Service 3", "Service 4"].map(
+            (service) => (
+              <Link
+                key={service}
+                to="#"
+                className="block text-sm transition hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {service}
+              </Link>
+            )
+          )}
+        </nav>
 
-        {/* 4th part */}
+        {/* 📞 Contact */}
         <div className="space-y-4">
           <h2 className="text-lg font-bold">Contact Us</h2>
+
           <div>
             <p className="text-sm">Mobile</p>
-            <p className="font-bold text-gray-800 dark:text-white">
-              +201014215587
-            </p>
+            <a
+              href="tel:+201014215587"
+              className="font-bold text-gray-800 dark:text-white hover:text-blue-600"
+            >
+              +20 101 421 5587
+            </a>
           </div>
-          <div className="mt-2">
+
+          <div>
             <p className="text-sm">Email</p>
-            <p className="font-bold text-gray-800 dark:text-white">
+            <a
+              href="mailto:ahmadsoliman283@gmail.com"
+              className="font-bold text-gray-800 dark:text-white hover:text-blue-600"
+            >
               ahmadsoliman283@gmail.com
-            </p>
+            </a>
           </div>
         </div>
       </div>
 
-      {/* bottom section */}
+      {/* 🔻 Bottom Section */}
       <div className="mt-10 border-t border-gray-200 dark:border-gray-700 pt-6 max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600 dark:text-gray-400">
         <p className="text-center md:text-left">
           © {new Date().getFullYear()} Webdev. All rights reserved
         </p>
-        <div className="flex items-center space-x-4 mt-4 md:mt-0">
+
+        {/* 🌐 Social */}
+        <div className="flex items-center gap-4 mt-4 md:mt-0">
           <span>Follow us:</span>
-          <Link to="#" className="hover:text-blue-600">
+
+          <Link
+            to="#"
+            aria-label="Facebook"
+            className="hover:text-blue-600 dark:hover:text-blue-400"
+          >
             <Facebook size={20} />
           </Link>
-          <Link to="#" className="hover:text-black">
+
+          <Link to="#" aria-label="Twitter" className="hover:text-sky-500">
             <Twitter size={20} />
           </Link>
-          <Link to="#" className="hover:text-rose-500">
+
+          <Link to="#" aria-label="Instagram" className="hover:text-rose-500">
             <Instagram size={20} />
           </Link>
         </div>
