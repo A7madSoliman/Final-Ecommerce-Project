@@ -57,7 +57,7 @@ export default function Register() {
     <section className="max-w-lg mx-auto">
       <div className="rounded-lg p-8 mt-10 border border-gray-300 shadow-lg">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
-          Create Account
+          REGISTER NOW
         </h2>
 
         <form onSubmit={formik.handleSubmit}>
@@ -237,7 +237,7 @@ export default function Register() {
             {isPending ? (
               <Loader2 className="animate-spin w-6 h-6" />
             ) : (
-              "Create Account"
+              "REGISTER NOW"
             )}
           </button>
         </form>
@@ -248,7 +248,7 @@ export default function Register() {
               to="/login"
               className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors duration-300 cursor-pointer"
             >
-              Sign In
+              LOGIN
             </Link>
           </p>
         </div>

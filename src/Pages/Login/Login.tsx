@@ -29,7 +29,7 @@ export default function Login() {
     <section className="max-w-lg mx-auto">
       <div className="rounded-lg p-8 mt-10 border border-gray-300 shadow-lg">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
-          Log In
+          LOGIN
         </h2>
 
         <form onSubmit={formik.handleSubmit}>
@@ -118,11 +118,7 @@ export default function Login() {
             disabled={isPending}
             className="mt-6 w-full flex justify-center items-center bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
           >
-            {isPending ? (
-              <Loader2 className="animate-spin w-6 h-6" />
-            ) : (
-              "Log In"
-            )}
+            {isPending ? <Loader2 className="animate-spin w-6 h-6" /> : "LOGIN"}
           </button>
         </form>
         <div className="mt-8 text-center pt-6 border-t border-gray-200 dark:border-gray-600">
@@ -132,7 +128,7 @@ export default function Login() {
               to="/register"
               className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors duration-300 cursor-pointer"
             >
-              Rigster Now!
+              REGISTER NOW!
             </Link>
           </p>
         </div>
