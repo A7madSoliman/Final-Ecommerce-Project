@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useProduct from "../../Hooks/useProduct";
 import Loading from "../../Components/Loading/Loading";
 import ReactImageGallery from "react-image-gallery";
@@ -6,8 +6,11 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import { Heart, Loader2, Star } from "lucide-react";
 import { useCart } from "../../Hooks/useCart";
 import { useWishList } from "../../Hooks/useWishList";
+import { useAuth } from "../../Context/AuthContext";
 
 export default function ProductsDetails() {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { addToCart, isAdding } = useCart();
   const { data, isLoading } = useProduct(id ?? "");
@@ -19,7 +22,24 @@ export default function ProductsDetails() {
     removeFromWishList,
   } = useWishList();
 
-  if (!id) return <p>Invalid product</p>;
+  function handleAddtoCart() {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+    if (!id) return;
+    addToCart(id);
+  }
+
+  function handAddToWishlist() {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+    if (!id) return;
+    isInWishlist ? removeFromWishList(id) : addToWishList(id);
+  }
+
   if (isLoading) return <Loading />;
 
   const isInWishlist = wishlist?.data?.some((item) => item._id === id);
@@ -80,7 +100,7 @@ export default function ProductsDetails() {
           {/* Actions */}
           <div className="flex items-center gap-4 mt-4">
             <button
-              onClick={() => addToCart(id)}
+              onClick={handleAddtoCart}
               className="flex-1 flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition cursor-pointer"
             >
               {isAdding ? (
@@ -91,9 +111,7 @@ export default function ProductsDetails() {
             </button>
 
             <button
-              onClick={() =>
-                isInWishlist ? removeFromWishList(id) : addToWishList(id)
-              }
+              onClick={handAddToWishlist}
               disabled={isWishLoading}
               className="w-12 h-12 flex items-center justify-center rounded-xl border border-gray-300 hover:bg-gray-100 transition cursor-pointer"
             >
