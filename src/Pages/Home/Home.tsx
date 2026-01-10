@@ -66,7 +66,7 @@ export default function Home() {
               className="px-6 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
             >
               {isFetchingNextPage ? (
-                <Loader2 className="animate-spin w-6 h-5" />
+                <Loader2 className="animate-spin w-6 h-6" />
               ) : (
                 "Load More Products"
               )}
