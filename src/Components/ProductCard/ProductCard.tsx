@@ -133,9 +133,7 @@ export default function ProductCard({
             </Link>
 
             <button
-              onClick={() =>
-                isInWishlist ? removeFromWishList(id) : addToWishList(id)
-              }
+              onClick={handleToggleWishlist}
               disabled={isWishLoading}
               className="mobile-btn"
             >
@@ -151,7 +149,7 @@ export default function ProductCard({
             </button>
 
             <button
-              onClick={() => (isInCart ? removeFromCart(id) : addToCart(id))}
+              onClick={handleAddToCart}
               disabled={isCartLoading}
               className="mobile-btn"
             >
