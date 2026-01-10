@@ -1,4 +1,13 @@
-import { Eye, EyeOff, Key, Lock, Mail, Phone, User } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Key,
+  Loader2,
+  Lock,
+  Mail,
+  Phone,
+  User,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import useSignup from "../../Hooks/useSignup";
@@ -223,9 +232,13 @@ export default function Register() {
           <button
             type="submit"
             disabled={isPending}
-            className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            className="mt-6 w-full flex justify-center items-center bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
           >
-            {isPending ? "Creating Account..." : "Create Account"}
+            {isPending ? (
+              <Loader2 className="animate-spin w-6 h-6" />
+            ) : (
+              "Create Account"
+            )}
           </button>
         </form>
         <div className="mt-8 text-center pt-6 border-t border-gray-200 dark:border-gray-600">

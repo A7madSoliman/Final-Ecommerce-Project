@@ -83,7 +83,7 @@ export default function ProductCard({
               </Link>
 
               <button
-                onClick={handleAddToCart}
+                onClick={handleToggleWishlist}
                 disabled={isWishLoading}
                 className="bg-white/90 p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl delay-75 cursor-pointer"
                 aria-label="Toggle wishlist"
@@ -102,7 +102,7 @@ export default function ProductCard({
               </button>
 
               <button
-                onClick={handleToggleWishlist}
+                onClick={handleAddToCart}
                 disabled={isCartLoading}
                 className="bg-white/90 p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl delay-150 cursor-pointer"
                 aria-label="Toggle cart"

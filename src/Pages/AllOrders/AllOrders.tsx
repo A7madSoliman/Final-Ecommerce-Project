@@ -3,7 +3,7 @@ import useOrders from "../../Hooks/useOrders";
 import Loading from "../../Components/Loading/Loading";
 
 export default function AllOrders() {
-  const { data: orders, isLoading, isError } = useOrders();
+  const { data: orders, isLoading, isError, isPending } = useOrders();
 
   if (isLoading) {
     return <Loading />;
@@ -70,7 +70,10 @@ export default function AllOrders() {
         ))}
 
         <Link to="/" className="flex justify-center py-10">
-          <button className="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition">
+          <button
+            disabled={isPending}
+            className="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
+          >
             Go Home
           </button>
         </Link>

@@ -1,18 +1,19 @@
 import { Eye, EyeOff, Key, Lock, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import useResetPassword from "../../Hooks/useResetPassword";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 export default function ResetPassword() {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const { mutate: resetPassword, isPending, isSuccess } = useResetPassword();
 
   const resetPasswordSchema = Yup.object({
-    email: Yup.string().email().required(),
+    email: Yup.string().email("Invalid email").required("Email is required"),
     newPassword: Yup.string()
       .min(6, "Password too short")
       .required("Password is required"),
@@ -23,22 +24,24 @@ export default function ResetPassword() {
 
   const formik = useFormik({
     initialValues: {
-      email: localStorage.getItem("resetEmail") || "",
+      email: "",
       newPassword: "",
       reNewPassword: "",
     },
-    onSubmit: ({ email, newPassword }) => resetPassword({ email, newPassword }),
     validationSchema: resetPasswordSchema,
+    onSubmit: ({ email, newPassword }) => {
+      resetPassword({ email, newPassword });
+    },
   });
 
   useEffect(() => {
     if (isSuccess) {
       const timer = setTimeout(() => {
-        navigation("/login");
+        navigate("/login");
       }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [isSuccess, navigation]);
+  }, [isSuccess, navigate]);
 
   return (
     <section className="max-w-lg mx-auto">
@@ -60,23 +63,17 @@ export default function ResetPassword() {
               />
               <input
                 type="email"
-                className="pl-10 pr-4 py-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                 name="email"
                 id="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                className="pl-10 pr-4 py-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                formik.touched.email && formik.errors.email
-                  ? "max-h-20 opacity-100 mt-1"
-                  : "max-h-0 opacity-0"
-              }`}
-            >
-              <p className="text-red-500 text-sm">{formik.errors.email}</p>
-            </div>
+            {formik.touched.email && formik.errors.email && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -91,12 +88,12 @@ export default function ResetPassword() {
               />
               <input
                 type={showPassword ? "text" : "password"}
-                className="pl-10 pr-10 py-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                 name="newPassword"
                 id="newPassword"
                 value={formik.values.newPassword}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                className="pl-10 pr-10 py-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               />
               <button
                 type="button"
@@ -106,17 +103,11 @@ export default function ResetPassword() {
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                formik.touched.newPassword && formik.errors.newPassword
-                  ? "max-h-20 opacity-100 mt-1"
-                  : "max-h-0 opacity-0"
-              }`}
-            >
-              <p className="text-red-500 text-sm">
+            {formik.touched.newPassword && formik.errors.newPassword && (
+              <p className="text-red-500 text-sm mt-1">
                 {formik.errors.newPassword}
               </p>
-            </div>
+            )}
           </div>
 
           {/* Confirm Password */}
@@ -131,32 +122,26 @@ export default function ResetPassword() {
               />
               <input
                 type={showConfirmPassword ? "text" : "password"}
-                className="pl-10 pr-10 py-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                 name="reNewPassword"
                 id="reNewPassword"
                 value={formik.values.reNewPassword}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                className="pl-10 pr-10 py-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               />
               <button
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500"
               >
                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                formik.touched.reNewPassword && formik.errors.reNewPassword
-                  ? "max-h-20 opacity-100 mt-1"
-                  : "max-h-0 opacity-0"
-              }`}
-            >
-              <p className="text-red-500 text-sm">
+            {formik.touched.reNewPassword && formik.errors.reNewPassword && (
+              <p className="text-red-500 text-sm mt-1">
                 {formik.errors.reNewPassword}
               </p>
-            </div>
+            )}
           </div>
 
           {/* Submit */}

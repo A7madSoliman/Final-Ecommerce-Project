@@ -1,13 +1,12 @@
 import useCategories from "../../Hooks/useCategories";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import "swiper/css";
+import "swiper/swiper-bundle.css";
 import CategorySkeleton from "../CategorySkeleton/CategorySkeleton";
 
 export default function CategorySlider() {
   const { data, isLoading, isError } = useCategories();
 
-  // ❌ Error State
   if (isError) {
     return (
       <div className="text-center py-10 text-red-500">

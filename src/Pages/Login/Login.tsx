@@ -1,4 +1,4 @@
-import { Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../../Hooks/useLogin";
@@ -116,9 +116,13 @@ export default function Login() {
           <button
             type="submit"
             disabled={isPending}
-            className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            className="mt-6 w-full flex justify-center items-center bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
           >
-            {isPending ? "Logging In..." : "Log In"}
+            {isPending ? (
+              <Loader2 className="animate-spin w-6 h-6" />
+            ) : (
+              "Log In"
+            )}
           </button>
         </form>
         <div className="mt-8 text-center pt-6 border-t border-gray-200 dark:border-gray-600">

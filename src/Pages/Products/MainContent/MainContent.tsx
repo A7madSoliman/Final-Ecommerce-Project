@@ -1,3 +1,4 @@
+import { Loader2 } from "lucide-react";
 import Loading from "../../../Components/Loading/Loading";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 import useAOS from "../../../Hooks/useAOS";
@@ -53,9 +54,13 @@ export default function MainContent({
         <button
           onClick={() => fetchNextPage()}
           disabled={isFetchingNextPage}
-          className="mt-8 bg-blue-600 text-white px-6 py-2 rounded block mx-auto hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
+          className="mt-8 bg-blue-600 text-white px-6 py-3 rounded-full block mx-auto hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
         >
-          {isFetchingNextPage ? "Loading More..." : "Load More"}
+          {isFetchingNextPage ? (
+            <Loader2 className="animate-spin w-6 h-6" />
+          ) : (
+            "Load More Products"
+          )}
         </button>
       )}
     </>

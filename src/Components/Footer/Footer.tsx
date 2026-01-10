@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-300 pt-16 pb-10">
+    <footer className="bg-white border-t border-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-300 pt-16 pb-10">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* 🏢 Company */}
         <nav className="space-y-4" aria-label="Company links">

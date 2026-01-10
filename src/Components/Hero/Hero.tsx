@@ -85,7 +85,8 @@ export default function Hero() {
                   transition
                   hover:bg-gray-100
                   dark:border-gray-700
-                  dark:text-gray-300
+                  dark:text-gray-700
+                  dark:hover:text-gray-200
                   dark:hover:bg-gray-800
                   focus:outline-none focus:ring-2 focus:ring-gray-400
                 "

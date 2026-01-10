@@ -5,6 +5,7 @@ import CategorySlider from "../../Components/CategorySlider/CategorySlider";
 import Loading from "../../Components/Loading/Loading";
 import useProducts from "../../Hooks/useProducts";
 import useAOS from "../../Hooks/useAOS";
+import { Loader2 } from "lucide-react";
 
 const PRODUCTS_PER_PAGE = 20;
 
@@ -64,7 +65,11 @@ export default function Home() {
               disabled={isFetchingNextPage}
               className="px-6 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
             >
-              {isFetchingNextPage ? "Loading More ..." : "Load More Products"}
+              {isFetchingNextPage ? (
+                <Loader2 className="animate-spin w-6 h-5" />
+              ) : (
+                "Load More Products"
+              )}
             </button>
           </div>
         )}

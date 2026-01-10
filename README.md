@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# 🛒 Modern E-Commerce Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fully-featured, modern **E-Commerce Web Application** built using **React 19**, **TypeScript**, and **React Query**, following real-world frontend architecture and best practices used in production environments.
 
-Currently, two official plugins are available:
+This project focuses on scalability, performance, clean separation of concerns, and professional UI/UX patterns.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Core
 
-## Expanding the ESLint configuration
+- **React 19**
+- **TypeScript**
+- **Vite**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Routing & State
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React Router v7**
+- **@tanstack/react-query**
+- **React Query DevTools**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Styling & UI
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Tailwind CSS v4**
+- **Framer Motion**
+- **AOS (Animate on Scroll)**
+- **Lucide Icons**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Forms & Validation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Formik**
+- **Yup**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### API & Utilities
+
+- **Axios**
+- **JWT Decode**
+- **Lodash**
+
+### Media & Sliders
+
+- **Swiper.js**
+- **React Image Gallery**
+
+### Notifications
+
+- **React Hot Toast**
+
+---
+
+## 📂 Project Architecture
+
+The project follows a **clean, scalable folder structure** inspired by real production apps:

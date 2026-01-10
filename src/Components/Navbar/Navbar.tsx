@@ -52,18 +52,23 @@ export default function Navbar() {
                 key={link.name}
                 to={link.href}
                 className={({ isActive }) => {
-                  let base =
-                    "relative font-medium px-2 py-1 transition-colors hover:text-blue-600 dark:hover:text-blue-400";
+                  const base =
+                    "relative font-medium px-2 py-1 text-gray-700 dark:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-blue-600 after:origin-left after:transition-transform after:duration-300";
 
-                  if (isActive) {
-                    return `${base} text-blue-600 dark:text-blue-400 after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-blue-600 after:scale-x-100`;
-                  }
+                  const textColor = isActive
+                    ? "text-blue-600"
+                    : "hover:text-blue-600";
 
-                  if (isWishlist && hasWishlistItems) {
-                    return `${base} text-red-600 font-bold`;
-                  }
+                  const underline = isActive
+                    ? "after:scale-x-100"
+                    : "after:scale-x-0 hover:after:scale-x-100";
 
-                  return `${base} text-gray-700 dark:text-gray-200`;
+                  const wishlistClasses =
+                    isWishlist && hasWishlistItems
+                      ? "text-red-600 font-bold"
+                      : "";
+
+                  return `${base} ${textColor} ${underline} ${wishlistClasses}`;
                 }}
               >
                 {link.name}
